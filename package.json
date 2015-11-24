@@ -1,0 +1,17 @@
+{
+  "name": "rpn",
+  "version": "0.1.0",
+  "description": "A simple RPN calcualtor",
+  "main": "rpn.coffee",
+  "scripts": {
+  },
+  "keywords": [
+    "rpn",
+    "calculator"
+  ],
+  "author": "Brennan Cheung <git@brennancheung.com>",
+  "license": "MIT",
+  "dependencies": {
+    "readline": "^1.2.1"
+  }
+}
