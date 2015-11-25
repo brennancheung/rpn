@@ -2,16 +2,25 @@
   "name": "rpn",
   "version": "0.1.0",
   "description": "A simple RPN calcualtor",
-  "main": "rpn.coffee",
+  "main": "index.js",
   "scripts": {
+    "test": "coffee tests/test_runner.coffee"
   },
   "keywords": [
     "rpn",
-    "calculator"
+    "calculator",
+    "repl"
   ],
   "author": "Brennan Cheung <git@brennancheung.com>",
   "license": "MIT",
   "dependencies": {
+    "coffee-script": "^1.10.0",
     "readline": "^1.2.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "recursive-readdir-sync": "^1.0.6",
+    "yargs": "^3.30.0"
   }
 }
