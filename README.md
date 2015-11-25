@@ -59,6 +59,8 @@ Note the `[ dup * ]`.  It uses the same syntax as the array.  But how can it be 
 beauty there is no difference between arrays and functions.  Arrays are a list of elements and Functions are a
 list of instructions.  They are both lists and so they are both stored as arrays.
 
+`1 2 +` and `[ 1 2 + ] call` are basically the same.
+
 ## Types
 
 The REPL currently supports null, numerics (ints, floats, 1.25e-7), strings (double quotes only), arrays, and functions.
