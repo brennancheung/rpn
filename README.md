@@ -10,7 +10,8 @@ Install Coffeescript:
     npm install -g coffee-script
 
 Clone the repository and install the dependencies:
-    git clone 
+
+    git clone https://github.com/brennancheung/rpn.git
     cd rpn
     npm install
 
@@ -41,23 +42,38 @@ Type "help" to get a list of commands:
     map     	 (array,array) 	     Executes the function for each element of the array.
     help     	 () 	             Shows the available words and their arity.
 
+# Readline / Autocompletion
+
+It supports `readline` functionality an autocompletion.  Just type part of a command and hit `tab`.
+
+For example if I type `s`, `tab`, `t`, `tab`:
+
+    > s
+    strcat  split   swap
+
+    > strcat
+
+Also the standard Emacs style commands should work on most platforms as well `Ctrl-n`, `Ctrl-p`, `Ctrl-f`, `Ctrl-b`,
+`Ctrl-l`, `Ctrl-k`, etc.
+
+
 # Overview of the language
 
 If you don't already know how a basic RPN calculator works please read some tutorials on that first.
 
 RPN languages (post fix) tend to be extremely compact and powerful.  Here is a snippet that will take a string,
-split it on the spaces into an array, reverse the array, convert everythign to uppercase,
+split it on the spaces into an array, reverse the array, convert everything to uppercase,
 and then joins them together with '-'.
 
     " " split reverse [ upcase ] map "-" join
 
-Here's another example that specifes an array of numbers and squares each element.
+Here's another example that specifes an array of numbers and squares each number.
 
     [ 1 2 3 4 5 ] [ dup * ] map
 
-Note the `[ dup * ]`.  It uses the same syntax as the array.  But how can it be a function then.  That's the
-beauty there is no difference between arrays and functions.  Arrays are a list of elements and Functions are a
-list of instructions.  They are both lists and so they are both stored as arrays.
+Note the `[ dup * ]`.  It uses the same syntax as the array.  But how can it be a function then?  That's the
+beauty, there's no difference between arrays and functions.  Arrays are a list of elements and functions are a
+list of instructions.  They are both lists and so they both can be stored as arrays.
 
 `1 2 +` and `[ 1 2 + ] call` are basically the same.
 
@@ -65,7 +81,7 @@ list of instructions.  They are both lists and so they are both stored as arrays
 
 The REPL currently supports null, numerics (ints, floats, 1.25e-7), strings (double quotes only), arrays, and functions.
 
-Arrays use the standard bracket notation but don't use commands to separate.  Also, it is important that the brackets have
+Arrays use the standard bracket notation but don't use commas to separate.  Also, it is important that the brackets have
 whitespace.  `[ 1 2 3 ]` is valid.  `[1 2 3]` is not.  It will think you are trying to call a method called `[1`.
 
 The RPN REPL supports functional operations like `map` using anonymous functions.  Anonymous functions
@@ -77,8 +93,11 @@ are just anonymous functions.  There's no difference.
 It is convenient to move things around the stack sometimes.
 
 `dup` duplicates the last item on the stack.
+
 `swap` swaps the places of the last 2 items on the stack.
+
 `drop` deletes the last item on the stack.
+
 `clear` clears the entire stack so that it's empty.
 
 # Extending the language
@@ -92,14 +111,15 @@ Let's start with an example that takes a number and squares it.
         fn: (n) ->
             [{type: 'numeric', value: n.value * n.value}]
 
-Ok, let's disect what this means.
+Ok, let's dissect what this means.
 
 `token` is the name of the method (sometimes called a `word` in post fix languages).
 
 `description` is for the user.  It can be any string.  It is only used when displaying the `help`.
 
-`arity` is a list of arguments and their types.  Support types are: `any`, `boolean`, `numeric`, `string`, and `array`.
-To make it faster to type just use a string and separate the parameters with spaces.
+`arity` is a list of arguments and their types.  Supported types are: `any`, `boolean`, `numeric`, `string`, and `array`.
+To make it faster to type just use a string and separate the parameters with spaces.  Arity is also used to validate the types are correct
+before executing the `word` and to automatically pop them off the stack send them to your custom `fn`.
 
 `fn` is where you define the function.  It is a little bit trickier but not by much:
 

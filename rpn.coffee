@@ -110,7 +110,12 @@ class RPN
         @dictionary = {}
 
     startREPL: ->
-        @rl = readline.createInterface(process.stdin, process.stdout)
+        @rl = readline.createInterface
+            input: process.stdin
+            output: process.stdout
+            completer: (line) =>
+                matches = Object.keys(@dictionary).filter (word) -> word.indexOf(line) is 0
+                [matches, line]
         @rl.setPrompt '> '
         @rl.on 'line', @processLine
         console.log 'Type "help" for a list of commands.'
