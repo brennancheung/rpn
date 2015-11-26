@@ -219,7 +219,7 @@ rpn.registerWord
     description: 'Divide 2 numerics.'
     arity: 'numeric numeric'
     fn: (n1, n2) ->
-        [{type: 'numeric', value: n1.value * n2.value}]
+        [{type: 'numeric', value: n1.value / n2.value}]
 
 rpn.registerWord
     token: '%'
